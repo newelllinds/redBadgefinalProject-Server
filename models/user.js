@@ -1,5 +1,10 @@
-module.exports = function (sequelize, DataTypes) {
-    const User = sequelize.define('user', {
+const { DataTypes } = require('sequelize');
+const db = require('../db');
+
+// module.exports = function (sequelize, DataTypes) {
+    // const User = sequelize.define('user', {
+
+    const User = db.define('user', {
         // firstName: {
         //     type: DataTypes.STRING,
         //     allowNull: false
@@ -18,8 +23,7 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         },
         role: {
-          type: DataTypes.NUMBER
+          type: DataTypes.INTEGER
         } 
-    })
-    return User;
-}
+    });
+    module.exports = User;

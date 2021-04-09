@@ -1,14 +1,18 @@
-const router = require("express").Router();
-const User = require("../db").import("../models/user");
+const { Router } = require('express');
+const { User } = require('../models')
+// const router = require("express").Router();
+// const User = require("../db").import("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 /*USER SIGN-UP*/
-
+// *** Works in Postman *** //
+const router = Router();
 router.post("/create", function (req, res) {
     User.create({
         username: req.body.user.username,
-        password: bcrypt.hashSync(req.body.user.password, 13)
+        password: bcrypt.hashSync(req.body.user.password, 13),
+        role: req.body.user.role
   })
     .then(
         function createSuccess(user) {
@@ -18,8 +22,8 @@ router.post("/create", function (req, res) {
         res.json({
             user: user,
             message: "User successfully created!",
-            sessionToken: token
-    //       role: user.role
+            sessionToken: token,
+            role: user.role
         });
       }
     )
@@ -28,7 +32,7 @@ router.post("/create", function (req, res) {
 });
 
 /*USER SIGN-IN*/
-
+// *** Works in Postman *** //
 router.post("/login", function (req, res) {
     User.findOne({
         where: {

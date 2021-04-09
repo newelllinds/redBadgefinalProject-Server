@@ -1,28 +1,18 @@
-module.exports = function (sequelize, DataTypes) {
-    const forSale = sequelize.define('for-sale', {
-        image: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        description: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        price: {
-            type: DataTypes.NUMBER,
-            allowNull: false,
-        }, 
-        pickUpInfo: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        user_id: {
-            type: DataTypes.NUMBER
-        }
-    //   role: {
-    //       type: DataTypes.NUMBER,
+const { DataTypes } = require('sequelize');
+const db = require('../db');
 
-    //   } 
-    })
-    return User;
-}
+const SaleListing = db.define('forsale', {
+    image: {
+        type: DataTypes.STRING
+    },
+    description: {
+        type: DataTypes.STRING
+    },
+    price: {
+        type: DataTypes.INTEGER
+    },
+    pickup_info: {
+        type: DataTypes.STRING
+    }
+});
+module.exports = SaleListing;

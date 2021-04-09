@@ -1,33 +1,31 @@
-module.exports = function (sequelize, DataTypes) {
-    const ArtistProfile = sequelize.define('artist-profile', {
-        aboutTheArtist: {
+const { DataTypes } = require('sequelize');
+const db = require('../db');
+
+// module.exports = function (sequelize, DataTypes) {
+    // const ArtistProfile = sequelize.define('artist-profile', {
+const ArtistProfile = db.define('artistprofile', {
+        about_the_artist: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         mediums: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         inspiration: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true  
+            allowNull: true,
         }, 
         achievements: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         website: {
             type: DataTypes.STRING,
             allowNull: true
         },
-        user_id:{
-            type: DataTypes.NUMBER
-        }
-    //   role: {
-    //       type: DataTypes.NUMBER,
-
-    //   } 
-    })
-    return User;
-}
+        // user_id:{
+        //     type: DataTypes.NUMBER
+        // }
+});
+module.exports = ArtistProfile;
