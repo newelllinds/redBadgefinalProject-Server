@@ -1,6 +1,8 @@
 const User = require('./user');
 const SaleListing = require('./forsale')
 const ArtistProfile = require('./artistprofile')
+// const Supporter = require('./artistprofile')
+
 
 User.hasOne(ArtistProfile);
 ArtistProfile.belongsTo(User);
@@ -12,6 +14,7 @@ module.exports = {
     User,
     SaleListing,
     ArtistProfile,
+    // Supporter
 };
 
 
