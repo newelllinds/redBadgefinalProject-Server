@@ -25,6 +25,7 @@ app.use(Express.json());
 app.use('/user', controllers.User)
 app.use('/artist', controllers.ArtistProfile)
 app.use('/listing', controllers.SaleListing)
+// app.use('/supporter', controllers.Supporter)
 
 db.authenticate()
   .then(() => db.sync())
