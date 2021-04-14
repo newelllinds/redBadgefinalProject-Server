@@ -1,7 +1,7 @@
 const User = require('./user');
 const SaleListing = require('./forsale')
 const ArtistProfile = require('./artistprofile')
-// const Supporter = require('./artistprofile')
+const Supporter = require('./user')
 
 
 User.hasOne(ArtistProfile);
@@ -14,7 +14,7 @@ module.exports = {
     User,
     SaleListing,
     ArtistProfile,
-    // Supporter
+    Supporter
 };
 
 
