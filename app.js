@@ -4,7 +4,7 @@ const db = require('./db');
 
 const app = Express();
 
-const middlewares = require('./middleware');
+// const middleware = require('./middleware');
 
 const controllers = require('./controllers')
 
@@ -21,6 +21,7 @@ sequelize.sync();
 //sequelize.sync({force: true})
 
 app.use(Express.json());
+app.use(require('./middleware/cors'));
 
 app.use('/user', controllers.User)
 app.use('/artist', controllers.ArtistProfile)

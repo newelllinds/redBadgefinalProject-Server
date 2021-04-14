@@ -8,6 +8,9 @@ const router = Router();
 **************************** */
 // *** Works in Postman *** //
 router.post("/create-profile", validateSession, (req, res) => {
+    if (req.user.role != '2'){
+        res.json({message: 'Only Artists Can Create Profiles!'})
+    }
     const Profile = {
         about_the_artist: req.body.artist.about_the_artist,
         mediums: req.body.artist.mediums,
@@ -27,6 +30,9 @@ router.post("/create-profile", validateSession, (req, res) => {
 **************************** */
 // *** Works in Postman *** //
 router.get("/view-profile", validateSession, (req, res) => {
+    if (req.user.role != '2'){
+        res.json({message: 'Only Artists Can Access This Route!'})
+    }
     let userid = req.user.id
     ArtistProfile.findAll({
         where: { userId: userid }
@@ -41,6 +47,9 @@ router.get("/view-profile", validateSession, (req, res) => {
 **************************** */
 // *** Works in Postman *** //
 router.put("/update-profile/:id", validateSession, function (req, res) {
+    if (req.user.role != '2'){
+        res.json({message: 'Only Artists Can Update Their Own Profiles!'})
+    }
     const updateProfile = {
         about_the_artist: req.body.artist.about_the_artist,
         mediums: req.body.artist.mediums,
@@ -53,7 +62,7 @@ router.put("/update-profile/:id", validateSession, function (req, res) {
     const query = { where: { id: req.params.id, userId: req.user.id } };
     
     ArtistProfile.update(updateProfile, query)
-        .then((logs) => res.status(200).json(logs))
+        .then((profiles) => res.status(200).json(profiles))
         .catch((err) => res.status(500).json({ error: err }));
 });
 
@@ -62,11 +71,24 @@ router.put("/update-profile/:id", validateSession, function (req, res) {
 **************************** */
 // *** Works in Postman *** //
 router.delete("/delete-profile/:id", validateSession, function (req, res) {
+    if (req.user.role != '2'){
+        res.json({message: 'Only Artists Can Delete Their Profiles!'})
+    }
     const query = { where: { id: req.params.id, userId: req.user.id } }; //params points to the URL
 
     ArtistProfile.destroy(query) //.destroy() is a sequelize method to remove an item from a database - query tells Sequelize what to look for in trying to find an item to delete. If nothing matches, nothing is done.
         .then(() => res.status(200).json({ message: "Artist Profile Removed" }))
         .catch((err) => res.status(500).json({ error: err }));
+});
+
+/* *****************************************
+*** SUPPORTER - VIEW ALL ARTIST PROFILES ***
+****************************************** */
+// *** Works in Postman *** //
+router.get("/view-artist-profiles", validateSession, (req, res) => {
+    ArtistProfile.findAll()
+        .then(profiles => res.status(200).json(profiles))
+        .catch(err => res.status(500).json({ error: err }))
 });
 
 module.exports = router;
