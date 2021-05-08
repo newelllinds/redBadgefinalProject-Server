@@ -91,4 +91,16 @@ router.get("/view-all-listings", validateSession, (req, res) => {
         .catch(err => res.status(500).json({ error: err }))
 });
 
+// /* *****************************************
+// *** SUPPORTER - VIEW ARTIST SHOP BY ID ***
+// ****************************************** */
+router.get("/view-artist-shop/:id", validateSession, (req, res) => {
+    let userId = req.params.id
+    SaleListing.findAll({
+        where: { userId: userId }
+    })
+        .then(listing => res.status(200).json(listing))
+        .catch(err => res.status(500).json({ error: err }))
+});
+
 module.exports = router;
